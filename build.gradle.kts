@@ -10,6 +10,7 @@ val version: String by project
 val main: String by project
 val asmVersion: String by project
 val jsonVersion: String by project
+val quiptCoreVersion: String by project
 
 plugins {
     id("java")
@@ -23,6 +24,7 @@ application.mainClass = main // Set the main class for the application
 
 repositories {
     mavenCentral()
+    maven (url="https://repo.vanillaflux.com/repository/quipt/")
 }
 
 dependencies {
@@ -35,6 +37,8 @@ dependencies {
     implementation("org.jfree:jfreechart:${jfreeVersion}")
     implementation("org.ow2.asm:asm:${asmVersion}")
     implementation("org.json:json:${jsonVersion}")
+
+    implementation("me.quickscythe:quipt-core:${quiptCoreVersion}")
 //    implementation(project(":core"))
 
 
