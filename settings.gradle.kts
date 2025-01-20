@@ -1,2 +1,2 @@
-rootProject.name = 'quipt-bot'
+rootProject.name = "quipt-bot"
 

@@ -35,7 +35,7 @@ dependencies {
     implementation("org.jfree:jfreechart:${jfreeVersion}")
     implementation("org.ow2.asm:asm:${asmVersion}")
     implementation("org.json:json:${jsonVersion}")
-    implementation(project(":core"))
+//    implementation(project(":core"))
 
 
 
