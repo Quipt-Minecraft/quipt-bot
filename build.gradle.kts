@@ -74,3 +74,12 @@ tasks.register<JavaExec>("runBot") {
     )
     dependsOn(tasks.build)
 }
+
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+    options.isIncremental = true
+
+    // Set this to the version of java you want to use,
+    // the minimum required for JDA is 1.8
+    sourceCompatibility = "21"
+}
