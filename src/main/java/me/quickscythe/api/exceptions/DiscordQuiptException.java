@@ -8,7 +8,9 @@
 
 package me.quickscythe.api.exceptions;
 
-public class DiscordQuiptException extends RuntimeException {
+import me.quickscythe.quipt.api.exceptions.SimpleQuiptException;
+
+public class DiscordQuiptException extends SimpleQuiptException {
     public DiscordQuiptException(String message) {
         super(message);
     }

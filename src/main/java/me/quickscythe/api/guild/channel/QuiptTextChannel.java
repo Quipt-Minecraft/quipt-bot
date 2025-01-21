@@ -8,9 +8,9 @@
 
 package me.quickscythe.api.guild.channel;
 
-import me.quickscythe.api.embed.Embed;
 import me.quickscythe.logger.LoggerUtils;
 import me.quickscythe.quipt.api.NetworkUtils;
+import me.quickscythe.quipt.api.discord.embed.Embed;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Icon;
 import net.dv8tion.jda.api.entities.Webhook;
