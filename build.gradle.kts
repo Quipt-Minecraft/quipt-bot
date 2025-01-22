@@ -6,11 +6,13 @@ val junitVersion: String by project
 val logbackVersion: String by project
 val jdaVersion: String by project
 val group: String by project
-val version: String by project
+val botVersion: String by project
 val main: String by project
 val asmVersion: String by project
 val jsonVersion: String by project
 val quiptCoreVersion: String by project
+val buildStatus: String by project
+val buildNumber: String by project
 
 plugins {
     id("java")
@@ -20,6 +22,7 @@ plugins {
 }
 
 application.mainClass = main // Set the main class for the application
+version = "${botVersion}-${buildStatus}-B${buildNumber}"
 
 
 repositories {
@@ -67,6 +70,7 @@ publishing {
 }
 
 tasks.register<JavaExec>("runBot") {
+
     mainClass.set(main) // Ensure this is correctly set
     classpath = sourceSets.main.get().runtimeClasspath
     jvmArgs = listOf(
