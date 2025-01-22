@@ -51,11 +51,11 @@ public class BotPluginLoader {
                         throw new IOException("Plugin " + file.getName() + " does not have a name listed in bot.plugin.properties");
                     Class<?> loadedClass = classLoader.loadClass(properties.getProperty("main"));
                     Object instance = loadedClass.getDeclaredConstructor().newInstance();
-                    if(instance instanceof BotPlugin plugin){
-                        plugin.name(properties.getProperty("name"));
-                        plugin.logger().info("Initialized plugin {}.", plugin.name());
-                        plugins.put(plugin, classLoader);
-                    }
+                    assert instance instanceof BotPlugin;
+                    BotPlugin plugin = (BotPlugin) instance;
+                    plugin.name(properties.getProperty("name"));
+                    plugin.logger().info("Initialized plugin {}.", plugin.name());
+                    plugins.put(plugin, classLoader);
 
 
                 } catch (Exception e) {

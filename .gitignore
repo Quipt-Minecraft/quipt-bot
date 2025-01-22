@@ -44,3 +44,4 @@ bin/
 .DS_Store
 /.idea/
 /config.json
+/bot_plugins/*
