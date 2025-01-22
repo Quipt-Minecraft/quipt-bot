@@ -1,6 +1,7 @@
 package me.quickscythe;
 
 import me.quickscythe.api.QDA;
+import me.quickscythe.api.plugins.BotPluginLoader;
 import me.quickscythe.logger.LoggerUtils;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -18,6 +19,7 @@ public class Bot {
     private static JDA jda;
     private static QDA qda;
     private static JSONObject config;
+    private static BotPluginLoader pluginLoader;
 
     public static void main(String[] args) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -49,6 +51,7 @@ public class Bot {
             api.awaitReady();
             Bot.jda = api;
             Bot.qda = new QDA(api);
+            pluginLoader = new BotPluginLoader();
             LoggerUtils.log("Bot", "Bot started successfully.");
         } catch (InterruptedException e) {
             LoggerUtils.log("Bot", "Error starting bot", e);
@@ -65,5 +68,9 @@ public class Bot {
 
     public static JDA jda() {
         return jda;
+    }
+
+    public static BotPluginLoader pluginLoader(){
+        return pluginLoader;
     }
 }
