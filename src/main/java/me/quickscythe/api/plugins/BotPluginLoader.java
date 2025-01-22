@@ -1,6 +1,7 @@
 package me.quickscythe.api.plugins;
 
 
+import me.quickscythe.logger.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +14,6 @@ import java.util.*;
 
 public class BotPluginLoader {
     private final Map<BotPlugin, ClassLoader> plugins = new HashMap<>();
-    Logger logger = LoggerFactory.getLogger("PluginLoader");
 
     public BotPluginLoader() {
         registerPlugins();
@@ -25,15 +25,15 @@ public class BotPluginLoader {
     }
 
     public void enablePlugin(BotPlugin plugin) {
-        logger.info("Enabling plugin {}...", plugin.name());
+        LoggerUtils.log("PluginLoader", "Enabling plugin {}...", plugin.name());
         plugin.enable();
-        logger.info("Enabled {}.", plugin.name());
+        LoggerUtils.log("PluginLoader", "Enabled {}.", plugin.name());
     }
 
     private void registerPlugins() {
         File plugin_folder = new File("bot_plugins");
-        if (!plugin_folder.exists()) logger.info("Creating plugin folder: {}", plugin_folder.mkdir());
-        logger.info("Initializing plugins...");
+        if (!plugin_folder.exists()) LoggerUtils.log("PluginLoader", "Creating plugin folder: {}", plugin_folder.mkdir());
+        LoggerUtils.log("PluginLoader", "Initializing plugins...");
         for (File file : Objects.requireNonNull(plugin_folder.listFiles())) {
             if (file.getName().endsWith(".jar")) {
                 try {
@@ -59,11 +59,11 @@ public class BotPluginLoader {
 
 
                 } catch (Exception e) {
-                    logger.error("There was an error registering plugin {}.", file.getName(), e);
+                    LoggerUtils.error("PluginLoader", "There was an error registering plugin {}.", file.getName(), e);
                 }
             }
         }
-        logger.info("Initialized {} plugins.", plugins.size());
+        LoggerUtils.log("PluginLoader", "Initialized {} plugins.", plugins.size());
     }
 
     public Set<BotPlugin> getPlugins() {
@@ -78,14 +78,14 @@ public class BotPluginLoader {
     }
 
     public void disablePlugins() {
-        logger.info("Disabling plugins...");
+        LoggerUtils.log("PluginLoader", "Disabling plugins...");
         for (Map.Entry<BotPlugin, ClassLoader> entry : plugins.entrySet()) {
             try {
                 disablePlugin(entry.getKey());
 
             } catch (IOException e) {
-                logger.info("There was an error disabling a plugin ({}).", entry.getKey().name());
-                logger.error(getClass().getName(), "disablePlugins", e);
+                LoggerUtils.log("PluginLoader", "There was an error disabling a plugin ({}).", entry.getKey().name());
+                LoggerUtils.log("PluginLoader", getClass().getName(), "disablePlugins", e);
             }
         }
         plugins.clear();
@@ -96,7 +96,7 @@ public class BotPluginLoader {
         //todo remove any listeners
         String name = plugin.name();
         if (plugins.get(plugin) instanceof URLClassLoader urlClassLoader) urlClassLoader.close();
-        logger.info("Plugin {} disabled.", name);
+        LoggerUtils.log("PluginLoader", "Plugin {} disabled.", name);
     }
 
     private void enablePlugins() {
