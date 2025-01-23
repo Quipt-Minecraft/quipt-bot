@@ -20,8 +20,34 @@ public class BotPluginLoader {
         enablePlugins();
     }
 
-    public void registerPlugin(BotPlugin plugin) {
-        plugins.put(plugin, plugin.getClass().getClassLoader());
+    public void registerPlugin(File pluginFile) {
+        if (pluginFile.getName().endsWith(".jar")) {
+            try {
+                URLClassLoader classLoader = new URLClassLoader(new URL[]{pluginFile.toURI().toURL()});
+                Properties properties = new Properties();
+
+                InputStream inputStream = classLoader.getResourceAsStream("bot.plugin.properties");
+                if (inputStream == null)
+                    throw new IOException("bot.plugin.properties not found in the JAR file");
+
+                properties.load(inputStream);
+                if (!properties.containsKey("main"))
+                    throw new IOException("Plugin " + pluginFile.getName() + " does not have a main class listed in bot.plugin.properties");
+                if (!properties.containsKey("name"))
+                    throw new IOException("Plugin " + pluginFile.getName() + " does not have a name listed in bot.plugin.properties");
+                Class<?> loadedClass = classLoader.loadClass(properties.getProperty("main"));
+                Object instance = loadedClass.getDeclaredConstructor().newInstance();
+                assert instance instanceof BotPlugin;
+                BotPlugin plugin = (BotPlugin) instance;
+                plugin.name(properties.getProperty("name"));
+                plugin.logger().info("Initialized plugin {}.", plugin.name());
+                plugins.put(plugin, classLoader);
+
+
+            } catch (Exception e) {
+                LoggerUtils.error("PluginLoader", "There was an error registering plugin {}.", pluginFile.getName(), e);
+            }
+        }
     }
 
     public void enablePlugin(BotPlugin plugin) {
@@ -35,33 +61,7 @@ public class BotPluginLoader {
         if (!plugin_folder.exists()) LoggerUtils.log("PluginLoader", "Creating plugin folder: {}", plugin_folder.mkdir());
         LoggerUtils.log("PluginLoader", "Initializing plugins...");
         for (File file : Objects.requireNonNull(plugin_folder.listFiles())) {
-            if (file.getName().endsWith(".jar")) {
-                try {
-                    URLClassLoader classLoader = new URLClassLoader(new URL[]{file.toURI().toURL()});
-                    Properties properties = new Properties();
-
-                    InputStream inputStream = classLoader.getResourceAsStream("bot.plugin.properties");
-                    if (inputStream == null)
-                        throw new IOException("bot.plugin.properties not found in the JAR file");
-
-                    properties.load(inputStream);
-                    if (!properties.containsKey("main"))
-                        throw new IOException("Plugin " + file.getName() + " does not have a main class listed in bot.plugin.properties");
-                    if (!properties.containsKey("name"))
-                        throw new IOException("Plugin " + file.getName() + " does not have a name listed in bot.plugin.properties");
-                    Class<?> loadedClass = classLoader.loadClass(properties.getProperty("main"));
-                    Object instance = loadedClass.getDeclaredConstructor().newInstance();
-                    assert instance instanceof BotPlugin;
-                    BotPlugin plugin = (BotPlugin) instance;
-                    plugin.name(properties.getProperty("name"));
-                    plugin.logger().info("Initialized plugin {}.", plugin.name());
-                    plugins.put(plugin, classLoader);
-
-
-                } catch (Exception e) {
-                    LoggerUtils.error("PluginLoader", "There was an error registering plugin {}.", file.getName(), e);
-                }
-            }
+            registerPlugin(file);
         }
         LoggerUtils.log("PluginLoader", "Initialized {} plugins.", plugins.size());
     }
