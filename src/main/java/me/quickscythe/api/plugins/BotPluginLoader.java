@@ -20,7 +20,7 @@ public class BotPluginLoader {
         enablePlugins();
     }
 
-    public void registerPlugin(File pluginFile) {
+    public BotPlugin registerPlugin(File pluginFile) {
         if (pluginFile.getName().endsWith(".jar")) {
             try {
                 URLClassLoader classLoader = new URLClassLoader(new URL[]{pluginFile.toURI().toURL()});
@@ -42,12 +42,14 @@ public class BotPluginLoader {
                 plugin.name(properties.getProperty("name"));
                 plugin.logger().info("Initialized plugin {}.", plugin.name());
                 plugins.put(plugin, classLoader);
-
+                return plugin;
 
             } catch (Exception e) {
                 LoggerUtils.error("PluginLoader", "There was an error registering plugin {}.", pluginFile.getName(), e);
             }
+
         }
+        return null;
     }
 
     public void enablePlugin(BotPlugin plugin) {
