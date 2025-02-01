@@ -9,10 +9,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class Bot {
 
@@ -27,6 +24,17 @@ public class Bot {
             File config = new File("config.json");
             if (!config.exists()) if (config.createNewFile()) {
                 LoggerUtils.error("Config file generated.", "=");
+                //write to file
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("bot_token", "<bot_token>");
+
+
+                //write to file
+                try (FileWriter writer = new FileWriter(config)) {
+                    writer.write(jsonObject.toString(2));
+                } catch (IOException e) {
+                }
+
             }
             BufferedReader reader = new BufferedReader(new FileReader("config.json"));
 
