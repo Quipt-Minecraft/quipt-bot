@@ -6,9 +6,9 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package me.quickscythe.api.guild;
+package com.quiptmc.discord.api.guild;
 
-import me.quickscythe.api.guild.channel.QuiptTextChannel;
+import com.quiptmc.discord.api.guild.channel.QuiptTextChannel;
 import net.dv8tion.jda.api.entities.Guild;
 
 import java.util.ArrayList;

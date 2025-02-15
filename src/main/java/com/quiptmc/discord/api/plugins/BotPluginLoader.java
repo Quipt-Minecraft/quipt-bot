@@ -1,9 +1,7 @@
-package me.quickscythe.api.plugins;
+package com.quiptmc.discord.api.plugins;
 
 
-import me.quickscythe.logger.LoggerUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.quiptmc.discord.logger.LoggerUtils;
 
 import java.io.File;
 import java.io.IOException;

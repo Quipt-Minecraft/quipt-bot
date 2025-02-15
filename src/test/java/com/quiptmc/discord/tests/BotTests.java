@@ -1,8 +1,5 @@
-package me.quickscythe.quipt.bot.tests;
+package com.quiptmc.discord.tests;
 
-import me.quickscythe.Bot;
-import net.dv8tion.jda.api.exceptions.InvalidTokenException;
-import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

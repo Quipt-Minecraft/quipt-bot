@@ -6,11 +6,11 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package me.quickscythe.api.guild.channel;
+package com.quiptmc.discord.api.guild.channel;
 
-import me.quickscythe.logger.LoggerUtils;
-import me.quickscythe.quipt.api.discord.embed.Embed;
-import me.quickscythe.quipt.api.utils.NetworkUtils;
+import com.quiptmc.discord.logger.LoggerUtils;
+import com.quiptmc.core.discord.embed.Embed;
+import com.quiptmc.core.utils.NetworkUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Icon;
 import net.dv8tion.jda.api.entities.Webhook;

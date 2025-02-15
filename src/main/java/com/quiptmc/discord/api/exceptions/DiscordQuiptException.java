@@ -6,9 +6,10 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package me.quickscythe.api.exceptions;
+package com.quiptmc.discord.api.exceptions;
 
-import me.quickscythe.quipt.api.exceptions.SimpleQuiptException;
+
+import com.quiptmc.core.exceptions.SimpleQuiptException;
 
 public class DiscordQuiptException extends SimpleQuiptException {
     public DiscordQuiptException(String message) {

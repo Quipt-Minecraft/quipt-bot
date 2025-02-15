@@ -6,7 +6,7 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package me.quickscythe.logger;
+package com.quiptmc.discord.logger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

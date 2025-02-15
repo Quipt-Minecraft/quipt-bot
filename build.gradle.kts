@@ -41,7 +41,7 @@ dependencies {
     implementation("org.ow2.asm:asm:${asmVersion}")
     implementation("org.json:json:${jsonVersion}")
 
-    implementation("me.quickscythe:quipt-core:${quiptCoreVersion}")
+    implementation("com.quiptmc:quipt-core:${quiptCoreVersion}")
 //    implementation(project(":core"))
 
 

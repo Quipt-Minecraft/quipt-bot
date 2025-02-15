@@ -1,8 +1,8 @@
-package me.quickscythe;
+package com.quiptmc.discord;
 
-import me.quickscythe.api.QDA;
-import me.quickscythe.api.plugins.BotPluginLoader;
-import me.quickscythe.logger.LoggerUtils;
+import com.quiptmc.discord.api.QDA;
+import com.quiptmc.discord.api.plugins.BotPluginLoader;
+import com.quiptmc.discord.logger.LoggerUtils;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
